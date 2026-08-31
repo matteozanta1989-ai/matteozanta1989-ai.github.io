@@ -1,1 +1,116 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Test regalo digitale</title><style>body{font-family:system-ui,-apple-system,sans-serif;background:#f3eadc;color:#33291f;display:grid;place-items:center;min-height:100vh;margin:0}.card{background:#fffaf2;border:1px solid #d9c8b2;border-radius:22px;padding:28px;box-shadow:0 12px 30px #0002;text-align:center;max-width:340px}h1{font-size:24px;margin:0 0 10px}p{margin:0;font-size:16px}</style></head><body><div class="card"><h1>Test riuscito ✈️</h1><p>Se vedi questa pagina, il QR potrà aprire il regalo senza login.</p></div></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eadac7">
+<title>Safare khubi dashte bashi ✈️</title>
+<style>
+:root{--ink:#38281d;--paper:#fffaf2;--warm:#eadac7;--line:#d4baa0;--shadow:0 18px 50px rgba(42,28,17,.24)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#eadac7;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{display:flex;justify-content:center;align-items:flex-start;min-height:100svh;overflow-x:hidden}
+.stage{position:relative;width:min(100vw,980px);aspect-ratio:1448/1086;background:#eadac7;overflow:hidden;box-shadow:var(--shadow)}
+.stage>img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.hotspot{position:absolute;border:0;background:transparent;cursor:pointer;border-radius:16%;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.hotspot::after{content:"";position:absolute;inset:7%;border:2px solid rgba(255,255,255,0);border-radius:16%;transition:.18s ease}
+.hotspot:active::after,.hotspot:focus-visible::after{border-color:rgba(255,255,255,.72);box-shadow:0 0 0 5px rgba(71,47,30,.15)}
+.music{left:23.2%;top:47.8%;width:16.8%;height:34.5%}
+.gallery{left:40.1%;top:47.8%;width:15.7%;height:34.5%}
+.heart{left:56.0%;top:47.8%;width:16.7%;height:34.5%}
+.hint{position:absolute;right:1.2rem;bottom:.7rem;font-size:11px;color:rgba(56,40,29,.55);background:rgba(255,250,242,.55);padding:.3rem .55rem;border-radius:999px;backdrop-filter:blur(5px)}
+.overlay{position:fixed;inset:0;z-index:10;background:rgba(30,20,13,.72);display:none;align-items:flex-end;justify-content:center;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
+.overlay.open{display:flex}
+.sheet{position:relative;width:min(100%,640px);max-height:91svh;background:var(--paper);border:1px solid rgba(255,255,255,.7);border-radius:26px 26px 20px 20px;box-shadow:0 24px 80px rgba(0,0,0,.35);overflow:auto;padding:22px 18px 20px}
+.close{position:sticky;float:right;top:0;z-index:2;width:40px;height:40px;border:0;border-radius:50%;font-size:26px;line-height:1;background:#efe2d2;color:#4b3525;cursor:pointer}
+h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:25px;margin:5px 50px 4px 2px}
+.sub{margin:0 50px 18px 2px;color:#78614f;font-size:13px;line-height:1.4}
+.tracks{display:grid;gap:9px}
+.track{display:flex;align-items:center;gap:12px;padding:11px 12px;text-decoration:none;color:var(--ink);border:1px solid #e5d6c5;background:#fffdf9;border-radius:14px}
+.track:active{transform:scale(.99)}
+.num{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:#efe2d2;font-weight:700;font-size:13px}
+.track b{display:block;font-size:14px;font-weight:650}.track small{display:block;color:#806b59;margin-top:2px;font-size:11px}.yt{margin-left:auto;font-size:16px}
+.video-wrap{background:#15110e;border-radius:18px;overflow:hidden;margin-top:14px;box-shadow:0 10px 28px rgba(0,0,0,.16)}
+video{display:block;width:100%;max-height:70svh;background:#000}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.thumb{position:relative;border:0;padding:0;border-radius:15px;overflow:hidden;background:#2a211b;cursor:pointer;aspect-ratio:9/13;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.thumb.land{aspect-ratio:16/10}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.88}
+.thumb span{position:absolute;inset:auto 8px 8px 8px;background:rgba(26,18,13,.76);color:#fff;border-radius:9px;padding:7px 8px;font-size:12px;text-align:left;backdrop-filter:blur(4px)}
+.playdot{position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);width:46px;height:46px;border-radius:50%;background:rgba(255,250,242,.88);display:grid;place-items:center;color:#4b3425;font-size:20px;box-shadow:0 5px 15px rgba(0,0,0,.25)}
+.player-title{font-family:Georgia,"Times New Roman",serif;font-size:20px;margin:13px 0 2px}.back{border:0;background:#efe2d2;color:#4a3426;border-radius:12px;padding:9px 12px;font-weight:650;margin-top:12px;cursor:pointer}
+@media (max-width:520px){.stage{width:100vw;box-shadow:none}.hint{display:none}.overlay{padding:0;align-items:flex-end}.sheet{max-height:94svh;border-radius:24px 24px 0 0;padding:18px 14px 18px}.gallery-grid{gap:8px}.track{padding:10px}.thumb span{font-size:11px}}
+@media (min-width:700px){body{align-items:center;padding:24px}.stage{border-radius:22px}.overlay{align-items:center}.sheet{border-radius:26px}}
+</style>
+</head>
+<body>
+<main class="stage" aria-label="Valigia dei ricordi">
+  <img src="assets/valigia.jpg" alt="Valigia aperta con tre icone: musica, video e cuore">
+  <button class="hotspot music" aria-label="Apri la musica" onclick="openPanel('musicPanel')"></button>
+  <button class="hotspot gallery" aria-label="Apri i video" onclick="openPanel('galleryPanel')"></button>
+  <button class="hotspot heart" aria-label="Apri il video speciale" onclick="openMainVideo()"></button>
+  <div class="hint">tocca un'icona ✨</div>
+</main>
+
+<section id="musicPanel" class="overlay" role="dialog" aria-modal="true" aria-label="La nostra musica" onclick="backdrop(event)">
+  <div class="sheet">
+    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
+    <h2>🎵 La nostra musica</h2>
+    <p class="sub">Quelle che abbiamo ascoltato insieme. Tocca un brano e si apre su YouTube.</p>
+    <div class="tracks">
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Andy+Khoshgela+Bayad+Beraghsan"><span class="num">1</span><span><b>Andy – Khoshgela Bayad Beraghsan</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Shahram+Shabpareh+Mademoiselle"><span class="num">2</span><span><b>Shahram Shabpareh – Mademoiselle</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4FBlD5_JTWY"><span class="num">3</span><span><b>Shahrum Kashani – Dokhtar Bandari</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Mohsen+Chavoshi+Bazare+Khoramshahr"><span class="num">4</span><span><b>Mohsen Chavoshi – Bazare Khoramshahr</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=x8PWDcOUAwc"><span class="num">5</span><span><b>Morteza – Palangeh</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Younes+Bayat+Raze+Penhoon"><span class="num">6</span><span><b>Younes Bayat – Raze Penhoon</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=cvmiWI9IxTE"><span class="num">7</span><span><b>Olly, Juli – A noi non serve far l'amore</b><small>YouTube</small></span><span class="yt">▶</span></a>
+      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=X4tz_8KlSxA"><span class="num">8</span><span><b>Raffaella Carrà – Tanti auguri</b><small>YouTube</small></span><span class="yt">▶</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="mainPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video speciale" onclick="backdrop(event)">
+  <div class="sheet">
+    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
+    <h2>❤️</h2>
+    <p class="sub">Questo meritava un posto tutto suo.</p>
+    <div class="video-wrap"><video id="mainVideo" controls playsinline preload="metadata" poster="assets/video_principale.jpg"></video></div>
+  </div>
+</section>
+
+<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video" onclick="backdrop(event)">
+  <div class="sheet" id="gallerySheet">
+    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
+    <div id="galleryHome">
+      <h2>🎬 Altri momenti</h2>
+      <p class="sub">Cinque piccoli pezzi da portarsi dietro.</p>
+      <div class="gallery-grid">
+        <button class="thumb" onclick="playExtra(1,'Video 1')"><img src="assets/video_extra_1.jpg" alt="Video 1"><i class="playdot">▶</i><span>Video 1</span></button>
+        <button class="thumb" onclick="playExtra(2,'Video 2')"><img src="assets/video_extra_2.jpg" alt="Video 2"><i class="playdot">▶</i><span>Video 2</span></button>
+        <button class="thumb land" onclick="playExtra(3,'Video 3')"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i><span>Video 3</span></button>
+        <button class="thumb" onclick="playExtra(4,'Video 4')"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i><span>Video 4</span></button>
+        <button class="thumb" onclick="playExtra(5,'Video 5')"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i><span>Video 5</span></button>
+      </div>
+    </div>
+    <div id="galleryPlayer" hidden>
+      <h2 id="extraTitle">Video</h2>
+      <div class="video-wrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
+      <button class="back" onclick="galleryBack()">← Torna ai video</button>
+    </div>
+  </div>
+</section>
+
+<script>
+const overlays=[...document.querySelectorAll('.overlay')];
+function openPanel(id){closeVideos();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
+function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
+function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';galleryBack(true)}
+function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
+function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');home.hidden=true;box.hidden=false;document.getElementById('extraTitle').textContent=title;v.poster=`assets/video_extra_${n}.jpg`;v.src=`assets/video_extra_${n}.mp4`;v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');if(v){v.pause();v.removeAttribute('src');v.load()}if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+</script>
+</body>
+</html>
