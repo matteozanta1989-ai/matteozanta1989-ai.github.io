@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="it">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#eadac7">
-<title>Safare khubi dashte bashi ✈️</title>
-<style>
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#eadac7"><title>Safare khubi dashte bashi ✈️</title><style>
 :root{--ink:#38281d;--paper:#fffaf2;--warm:#eadac7;--line:#d4baa0;--shadow:0 18px 50px rgba(42,28,17,.24)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:#eadac7;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -41,69 +34,15 @@ video{display:block;width:100%;max-height:70svh;background:#000}
 .player-title{font-family:Georgia,"Times New Roman",serif;font-size:20px;margin:13px 0 2px}.back{border:0;background:#efe2d2;color:#4a3426;border-radius:12px;padding:9px 12px;font-weight:650;margin-top:12px;cursor:pointer}
 @media (max-width:520px){.stage{width:100vw;box-shadow:none}.hint{display:none}.overlay{padding:0;align-items:flex-end}.sheet{max-height:94svh;border-radius:24px 24px 0 0;padding:18px 14px 18px}.gallery-grid{gap:8px}.track{padding:10px}.thumb span{font-size:11px}}
 @media (min-width:700px){body{align-items:center;padding:24px}.stage{border-radius:22px}.overlay{align-items:center}.sheet{border-radius:26px}}
-</style>
-</head>
-<body>
-<main class="stage" aria-label="Valigia dei ricordi">
-  <img src="assets/valigia.jpg" alt="Valigia aperta con tre icone: musica, video e cuore">
-  <button class="hotspot music" aria-label="Apri la musica" onclick="openPanel('musicPanel')"></button>
-  <button class="hotspot gallery" aria-label="Apri i video" onclick="openPanel('galleryPanel')"></button>
-  <button class="hotspot heart" aria-label="Apri il video speciale" onclick="openMainVideo()"></button>
-  <div class="hint">tocca un'icona ✨</div>
-</main>
-
-<section id="musicPanel" class="overlay" role="dialog" aria-modal="true" aria-label="La nostra musica" onclick="backdrop(event)">
-  <div class="sheet">
-    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
-    <div class="tracks">
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Andy+Khoshgela+Bayad+Beraghsan"><span class="num">1</span><span><b>Andy – Khoshgela Bayad Beraghsan</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Shahram+Shabpareh+Mademoiselle"><span class="num">2</span><span><b>Shahram Shabpareh – Mademoiselle</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4FBlD5_JTWY"><span class="num">3</span><span><b>Shahrum Kashani – Dokhtar Bandari</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Mohsen+Chavoshi+Bazare+Khoramshahr"><span class="num">4</span><span><b>Mohsen Chavoshi – Bazare Khoramshahr</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=x8PWDcOUAwc"><span class="num">5</span><span><b>Morteza – Palangeh</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Younes+Bayat+Raze+Penhoon"><span class="num">6</span><span><b>Younes Bayat – Raze Penhoon</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=cvmiWI9IxTE"><span class="num">7</span><span><b>Olly, Juli – A noi non serve far l'amore</b><small>YouTube</small></span><span class="yt">▶</span></a>
-      <a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=X4tz_8KlSxA"><span class="num">8</span><span><b>Raffaella Carrà – Tanti auguri</b><small>YouTube</small></span><span class="yt">▶</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="mainPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video speciale" onclick="backdrop(event)">
-  <div class="sheet">
-    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
-    <div class="video-wrap"><video id="mainVideo" controls playsinline preload="metadata" poster="assets/video_principale.jpg"></video></div>
-  </div>
-</section>
-
-<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video" onclick="backdrop(event)">
-  <div class="sheet" id="gallerySheet">
-    <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
-    <div id="galleryHome">
-      <div class="gallery-grid">
-        <button class="thumb" onclick="playExtra(1,'')"><img src="assets/video_extra_1.jpg" alt="Video 1"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(2,'')"><img src="assets/video_extra_2.jpg" alt="Video 2"><i class="playdot">▶</i></button>
-        <button class="thumb land" onclick="playExtra(3,'')"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(4,'')"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(5,'')"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i></button>
-      </div>
-    </div>
-    <div id="galleryPlayer" hidden>
-      <div class="video-wrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
-      <button class="back" onclick="galleryBack()">← Torna ai video</button>
-    </div>
-  </div>
-</section>
-
-<script>
+</style></head><body><main class="stage" aria-label="Valigia dei ricordi"><img src="assets/valigia.jpg" alt="Valigia aperta con tre icone: musica, video e cuore"><button class="hotspot music" aria-label="Apri la musica" onclick="openPanel('musicPanel')"></button><button class="hotspot gallery" aria-label="Apri i video" onclick="openPanel('galleryPanel')"></button><button class="hotspot heart" aria-label="Apri il video speciale" onclick="openMainVideo()"></button><div class="hint">tocca un'icona ✨</div></main><section id="musicPanel" class="overlay" role="dialog" aria-modal="true" aria-label="La nostra musica" onclick="backdrop(event)"><div class="sheet"><button class="close" aria-label="Chiudi" onclick="closeAll()">×</button><div class="tracks"><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Andy+Khoshgela+Bayad+Beraghsan"><span class="num">1</span><span><b>Andy – Khoshgela Bayad Beraghsan</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Shahram+Shabpareh+Mademoiselle"><span class="num">2</span><span><b>Shahram Shabpareh – Mademoiselle</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4FBlD5_JTWY"><span class="num">3</span><span><b>Shahrum Kashani – Dokhtar Bandari</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Mohsen+Chavoshi+Bazare+Khoramshahr"><span class="num">4</span><span><b>Mohsen Chavoshi – Bazare Khoramshahr</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=x8PWDcOUAwc"><span class="num">5</span><span><b>Morteza – Palangeh</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Younes+Bayat+Raze+Penhoon"><span class="num">6</span><span><b>Younes Bayat – Raze Penhoon</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=cvmiWI9IxTE"><span class="num">7</span><span><b>Olly, Juli – A noi non serve far l'amore</b><small>YouTube</small></span><span class="yt">▶</span></a><a class="track" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=X4tz_8KlSxA"><span class="num">8</span><span><b>Raffaella Carrà – Tanti auguri</b><small>YouTube</small></span><span class="yt">▶</span></a></div></div></section><section id="mainPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video speciale" onclick="backdrop(event)"><div class="sheet"><button class="close" aria-label="Chiudi" onclick="closeAll()">×</button><div class="video-wrap"><video id="mainVideo" controls playsinline preload="metadata" poster="assets/video_principale.jpg"></video></div></div></section><section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video" onclick="backdrop(event)"><div class="sheet" id="gallerySheet"><button class="close" aria-label="Chiudi" onclick="closeAll()">×</button><div id="galleryHome"><div class="gallery-grid"><button class="thumb" onclick="playExtra(1,'')"><img src="assets/video_extra_1.jpg" alt="Video 1"><i class="playdot">▶</i></button><button class="thumb" onclick="playExtra(2,'')"><img src="assets/video_extra_2.jpg" alt="Video 2"><i class="playdot">▶</i></button><button class="thumb land" onclick="playExtra(3,'')"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i></button><button class="thumb" onclick="playExtra(4,'')"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i></button><button class="thumb" onclick="playExtra(5,'')"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i></button></div></div><div id="galleryPlayer" hidden><div class="video-wrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div><button class="back" onclick="galleryBack()">← Torna ai video</button></div></div></section><script>
 const overlays=[...document.querySelectorAll('.overlay')];
 function openPanel(id){closeVideos();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
 function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';galleryBack(true)}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
-function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');home.hidden=true;box.hidden=false;v.poster=`assets/video_extra_${n}.jpg`;v.src=`assets/video_extra_${n}.mp4`;v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+const extraSources={1:'assets/video_extra_1.mp4',2:'assets/video_extra_2_hq.mp4',3:'assets/video_extra_3_hq.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4'};
+function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');home.hidden=true;box.hidden=false;v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');if(v){v.pause();v.removeAttribute('src');v.load()}if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
-</script>
-</body>
-</html>
+</script></body></html>
