@@ -101,7 +101,7 @@ function openMainVideo(){openPanel('mainPanel');const v=document.getElementById(
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
 function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';galleryBack(true)}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
-const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq.mp4',3:'assets/video_extra_3_hq.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4'};
+const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4'};
 function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');home.hidden=true;box.hidden=false;v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');if(v){v.pause();v.removeAttribute('src');v.load()}if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
