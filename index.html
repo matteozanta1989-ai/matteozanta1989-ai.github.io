@@ -39,8 +39,9 @@ h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:25px;ma
 .track:active{transform:scale(.99)}
 .num{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:#efe2d2;font-weight:700;font-size:13px}
 .track b{display:block;font-size:14px;font-weight:650}.track small{display:block;color:#806b59;margin-top:2px;font-size:11px}.yt{margin-left:auto;font-size:16px}
-.video-wrap{background:#15110e;border-radius:18px;overflow:hidden;margin-top:14px;box-shadow:0 10px 28px rgba(0,0,0,.16)}
-video{display:block;width:100%;max-height:70svh;background:#000}
+.video-wrap,.image-wrap{background:#15110e;border-radius:18px;overflow:hidden;margin-top:14px;box-shadow:0 10px 28px rgba(0,0,0,.16)}
+video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
+.image-wrap img{object-fit:contain;background:#15110e}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
 .thumb{position:relative;border:0;padding:0;border-radius:15px;overflow:hidden;background:#2a211b;cursor:pointer;aspect-ratio:9/13;box-shadow:0 6px 18px rgba(0,0,0,.12)}
 .thumb.land{aspect-ratio:16/10}
@@ -84,7 +85,7 @@ video{display:block;width:100%;max-height:70svh;background:#000}
   </div>
 </section>
 
-<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video" onclick="backdrop(event)">
+<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video e foto" onclick="backdrop(event)">
   <div class="sheet" id="gallerySheet">
     <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
     <div id="galleryHome">
@@ -94,11 +95,15 @@ video{display:block;width:100%;max-height:70svh;background:#000}
         <button class="thumb land" onclick="playExtra(3,'')"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i></button>
         <button class="thumb" onclick="playExtra(4,'')"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i></button>
         <button class="thumb" onclick="playExtra(5,'')"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(6,'')"><img src="assets/video_extra_6.jpg" alt="Video 6"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="openPhoto('assets/IMG_20260805_201518_edit_1713232036475410.jpg')"><img src="assets/IMG_20260805_201518_edit_1713232036475410.jpg" alt="Foto"></button>
+        <button class="thumb land" onclick="openPhoto('assets/FB_IMG_1776092345454.jpg')"><img src="assets/FB_IMG_1776092345454.jpg" alt="Foto di gruppo"></button>
       </div>
     </div>
     <div id="galleryPlayer" hidden>
-      <div class="video-wrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
-      <button class="back" onclick="galleryBack()">← Torna ai video</button>
+      <div class="video-wrap" id="videoWrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
+      <div class="image-wrap" id="imageWrap" hidden><img id="extraImage" alt="Foto"></div>
+      <button class="back" onclick="galleryBack()">← Torna indietro</button>
     </div>
   </div>
 </section>
@@ -110,9 +115,10 @@ function openMainVideo(){openPanel('mainPanel');const v=document.getElementById(
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
 function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';galleryBack(true)}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
-const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4'};
-function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');home.hidden=true;box.hidden=false;v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo');if(v){v.pause();v.removeAttribute('src');v.load()}if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
+const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4',6:'assets/VID_20260710_003340_web_final.mp4'};
+function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');home.hidden=true;box.hidden=false;iw.hidden=true;vw.hidden=false;img.removeAttribute('src');v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function openPhoto(src){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');home.hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');if(v){v.pause();v.removeAttribute('src');v.load()}if(img)img.removeAttribute('src');if(vw)vw.hidden=false;if(iw)iw.hidden=true;if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 </script>
 </body>
