@@ -51,6 +51,34 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 .thumb span{position:absolute;inset:auto 8px 8px 8px;background:rgba(26,18,13,.76);color:#fff;border-radius:9px;padding:7px 8px;font-size:12px;text-align:left;backdrop-filter:blur(4px)}
 .playdot{position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);width:46px;height:46px;border-radius:50%;background:rgba(255,250,242,.88);display:grid;place-items:center;color:#4b3425;font-size:20px;box-shadow:0 5px 15px rgba(0,0,0,.25)}
 .player-title{font-family:Georgia,"Times New Roman",serif;font-size:20px;margin:13px 0 2px}.back{border:0;background:#efe2d2;color:#4a3426;border-radius:12px;padding:9px 12px;font-weight:650;margin-top:12px;cursor:pointer}
+.media-menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;clear:both;margin-top:8px}
+.media-card{position:relative;border:0;padding:0;background:transparent;cursor:pointer;aspect-ratio:4/5;border-radius:18px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;overflow:hidden;filter:drop-shadow(0 7px 10px rgba(48,31,20,.16))}
+.media-card:active{transform:scale(.985)}
+.media-card:focus-visible{outline:3px solid #c9a57d;outline-offset:2px}
+.media-card[disabled]{cursor:default;opacity:1}
+.media-card[disabled]:active{transform:none}
+.folder-video{background:linear-gradient(145deg,#6f452c,#3f281c);border:2px solid #8d603e}
+.folder-video:before{content:"";position:absolute;left:7%;right:7%;top:39%;height:15%;background:repeating-linear-gradient(135deg,#f0dcc3 0 12px,#3c281d 12px 24px);border:2px solid #2f2018;border-radius:5px;z-index:3}
+.video-peek{position:absolute;top:8%;width:35%;height:40%;object-fit:cover;border:4px solid #211a16;border-radius:4px;box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.video-peek.v1{left:5%;transform:rotate(-7deg)}.video-peek.v2{left:33%;transform:rotate(2deg)}.video-peek.v3{right:5%;transform:rotate(7deg)}
+.folder-play{position:absolute;left:50%;bottom:12%;transform:translateX(-50%);width:34%;aspect-ratio:1;border-radius:50%;background:#ead6bd;border:3px solid #b68b5b;display:grid;place-items:center;z-index:4}
+.folder-play:after{content:"";width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid #4a2e20;margin-left:5px}
+.folder-photo{background:linear-gradient(150deg,#f3e6d7,#d9b98f);border:2px solid #c49c6b}
+.photo-peek{position:absolute;top:7%;width:44%;height:43%;object-fit:cover;border:5px solid #fff8ef;box-shadow:0 4px 8px rgba(46,31,19,.18);z-index:1}
+.photo-peek.p1{left:8%;transform:rotate(-6deg)}.photo-peek.p2{right:8%;transform:rotate(5deg)}
+.camera-body{position:absolute;left:12%;right:12%;bottom:9%;height:48%;background:#efe0cc;border:3px solid #8a5b39;border-radius:15px;z-index:3}
+.camera-lens{position:absolute;left:50%;top:50%;transform:translate(-50%,-42%);width:43%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 42% 38%,#9d8b7e 0 9%,#2a2321 10% 29%,#0b0b0b 30% 50%,#73543f 51% 61%,#211713 62% 100%);border:4px solid #ad7c4d}
+.camera-flash{position:absolute;right:10%;top:13%;width:16%;height:15%;border-radius:3px;background:#27231f;border:3px solid #8a5b39}.camera-dot{position:absolute;right:10%;bottom:13%;width:10%;aspect-ratio:1;border-radius:50%;background:#c99a54;border:2px solid #8a5b39}
+.folder-extra{background:linear-gradient(155deg,#f5eadb,#dfc4a0);border:2px solid #c9a273;overflow:visible}
+.extra-pouch{position:absolute;left:5%;right:5%;bottom:8%;height:57%;background:linear-gradient(145deg,#efe4d2,#d7b98f);border:3px solid #8e5c38;border-radius:10px 10px 20px 20px;z-index:3}
+.extra-pouch:after{content:"✈";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);font-size:30px;color:#8b5b32}
+.extra-padova{position:absolute;left:10%;top:7%;width:54%;height:44%;object-fit:cover;border:5px solid #fff9ef;transform:rotate(-7deg);box-shadow:0 4px 8px rgba(46,31,19,.15);z-index:1}
+.extra-map{position:absolute;right:7%;top:12%;width:42%;height:42%;background:linear-gradient(135deg,#d6c29f,#eee0c7);border:2px solid #a88a65;transform:rotate(8deg);z-index:1}
+.extra-map:before,.extra-map:after{content:"";position:absolute;background:#aa9474;opacity:.75}.extra-map:before{left:18%;top:0;width:2px;height:100%;transform:rotate(25deg)}.extra-map:after{left:0;top:48%;width:100%;height:2px;transform:rotate(-14deg)}
+.extra-heart{position:absolute;left:45%;top:34%;z-index:4;font-size:29px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.15))}.extra-star{position:absolute;right:8%;top:37%;z-index:4;font-size:26px;color:#c6923e}
+.media-section{clear:both}
+.section-back{border:0;background:#efe2d2;color:#4a3426;border-radius:50%;width:42px;height:42px;font-size:22px;font-weight:700;margin:2px 0 10px;cursor:pointer}
+@media(max-width:520px){.media-menu{gap:6px}.media-card{border-radius:13px}.video-peek{border-width:3px}.photo-peek{border-width:3px}.folder-play:after{border-top-width:8px;border-bottom-width:8px;border-left-width:13px}.extra-pouch:after{font-size:22px}.extra-heart{font-size:22px}.extra-star{font-size:20px}.camera-body{border-width:2px}.camera-lens{border-width:3px}}
 @media (max-width:520px){.stage{width:100vw;box-shadow:none}.hint{display:none}.overlay{padding:0;align-items:flex-end}.sheet{max-height:94svh;border-radius:24px 24px 0 0;padding:18px 14px 18px}.gallery-grid{gap:8px}.track{padding:10px}.thumb span{font-size:11px}}
 @media (min-width:700px){body{align-items:center;padding:24px}.stage{border-radius:22px}.overlay{align-items:center}.sheet{border-radius:26px}}
 </style>
@@ -71,7 +99,6 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
   <button class="hotspot heart" aria-label="Apri il video speciale" onclick="openMainVideo()"></button>
   <div class="hint">tocca un'icona ✨</div>
 </main>
-
 <section id="musicPanel" class="overlay" role="dialog" aria-modal="true" aria-label="La nostra musica" onclick="backdrop(event)">
   <div class="sheet">
     <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
@@ -88,25 +115,46 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
     </div>
   </div>
 </section>
-
 <section id="mainPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video speciale" onclick="backdrop(event)">
   <div class="sheet">
     <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
     <div class="video-wrap"><video id="mainVideo" controls playsinline preload="metadata" poster="assets/video_principale.jpg"></video></div>
   </div>
 </section>
-
-<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Video e foto" onclick="backdrop(event)">
+<section id="galleryPanel" class="overlay" role="dialog" aria-modal="true" aria-label="Ricordi" onclick="backdrop(event)">
   <div class="sheet" id="gallerySheet">
     <button class="close" aria-label="Chiudi" onclick="closeAll()">×</button>
-    <div id="galleryHome">
+    <div id="mediaMenu" class="media-menu">
+      <button class="media-card folder-video" aria-label="Apri i video" onclick="openMediaSection('videos')">
+        <img class="video-peek v1" src="assets/video_extra_1.jpg" alt="">
+        <img class="video-peek v2" src="assets/video_extra_4.jpg" alt="">
+        <img class="video-peek v3" src="assets/video_extra_6.jpg" alt="">
+        <span class="folder-play" aria-hidden="true"></span>
+      </button>
+      <button class="media-card folder-photo" aria-label="Apri le fotografie" onclick="openMediaSection('photos')">
+        <img class="photo-peek p1" src="assets/IMG_20260805_201518_edit_1713232036475410.jpg" alt="">
+        <img class="photo-peek p2" src="assets/FB_IMG_1776092345454.jpg" alt="">
+        <span class="camera-body" aria-hidden="true"><span class="camera-lens"></span><span class="camera-flash"></span><span class="camera-dot"></span></span>
+      </button>
+      <button class="media-card folder-extra" aria-label="Contenuti extra, prossimamente" disabled>
+        <img class="extra-padova" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Prato%20della%20Valle.JPG?width=600" alt="">
+        <span class="extra-map" aria-hidden="true"></span><span class="extra-heart" aria-hidden="true">❤️</span><span class="extra-star" aria-hidden="true">★</span><span class="extra-pouch" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div id="videoHome" class="media-section" hidden>
+      <button class="section-back" onclick="mediaMenuBack()" aria-label="Indietro">‹</button>
       <div class="gallery-grid">
-        <button class="thumb" onclick="playExtra(1,'')"><img src="assets/video_extra_1.jpg" alt="Video 1"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(2,'')"><img src="assets/video_extra_2.jpg" alt="Video 2"><i class="playdot">▶</i></button>
-        <button class="thumb land" onclick="playExtra(3,'')"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(4,'')"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(5,'')"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i></button>
-        <button class="thumb" onclick="playExtra(6,'')"><img src="assets/video_extra_6.jpg" alt="Video 6"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(1)"><img src="assets/video_extra_1.jpg" alt="Video 1"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(2)"><img src="assets/video_extra_2.jpg" alt="Video 2"><i class="playdot">▶</i></button>
+        <button class="thumb land" onclick="playExtra(3)"><img src="assets/video_extra_3.jpg" alt="Video 3"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(4)"><img src="assets/video_extra_4.jpg" alt="Video 4"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(5)"><img src="assets/video_extra_5.jpg" alt="Video 5"><i class="playdot">▶</i></button>
+        <button class="thumb" onclick="playExtra(6)"><img src="assets/video_extra_6.jpg" alt="Video 6"><i class="playdot">▶</i></button>
+      </div>
+    </div>
+    <div id="photoHome" class="media-section" hidden>
+      <button class="section-back" onclick="mediaMenuBack()" aria-label="Indietro">‹</button>
+      <div class="gallery-grid">
         <button class="thumb" onclick="openPhoto('assets/IMG_20260805_201518_edit_1713232036475410.jpg')"><img src="assets/IMG_20260805_201518_edit_1713232036475410.jpg" alt="Foto"></button>
         <button class="thumb land" onclick="openPhoto('assets/FB_IMG_1776092345454.jpg')"><img src="assets/FB_IMG_1776092345454.jpg" alt="Foto di gruppo"></button>
       </div>
@@ -114,22 +162,26 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
     <div id="galleryPlayer" hidden>
       <div class="video-wrap" id="videoWrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
       <div class="image-wrap" id="imageWrap" hidden><img id="extraImage" alt="Foto"></div>
-      <button class="back" onclick="galleryBack()">← Torna indietro</button>
+      <button class="back" onclick="galleryBack()">←</button>
     </div>
   </div>
 </section>
-
 <script>
 const overlays=[...document.querySelectorAll('.overlay')];
-function openPanel(id){closeVideos();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+let activeMediaSection='';
+function openPanel(id){closeVideos();if(id==='galleryPanel')resetMediaPanel();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
-function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';galleryBack(true)}
+function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';resetMediaPanel()}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
+function clearMediaViewer(){const v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');if(v){v.pause();v.removeAttribute('src');v.load()}if(img)img.removeAttribute('src');if(vw)vw.hidden=false;if(iw)iw.hidden=true}
+function resetMediaPanel(){activeMediaSection='';clearMediaViewer();const menu=document.getElementById('mediaMenu'),vh=document.getElementById('videoHome'),ph=document.getElementById('photoHome'),box=document.getElementById('galleryPlayer');if(menu)menu.hidden=false;if(vh)vh.hidden=true;if(ph)ph.hidden=true;if(box)box.hidden=true}
+function openMediaSection(section){activeMediaSection=section;document.getElementById('mediaMenu').hidden=true;document.getElementById('videoHome').hidden=section!=='videos';document.getElementById('photoHome').hidden=section!=='photos';document.getElementById('galleryPlayer').hidden=true;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function mediaMenuBack(){resetMediaPanel();document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4',6:'assets/VID_20260710_003340_web_final.mp4'};
-function playExtra(n,title){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');home.hidden=true;box.hidden=false;iw.hidden=true;vw.hidden=false;img.removeAttribute('src');v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function openPhoto(src){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');home.hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function galleryBack(silent=false){const home=document.getElementById('galleryHome'),box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');if(v){v.pause();v.removeAttribute('src');v.load()}if(img)img.removeAttribute('src');if(vw)vw.hidden=false;if(iw)iw.hidden=true;if(home)home.hidden=false;if(box)box.hidden=true;if(!silent){document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}}
+function playExtra(n){activeMediaSection='videos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;box.hidden=false;iw.hidden=true;vw.hidden=false;img.removeAttribute('src');v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function openPhoto(src){activeMediaSection='photos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function galleryBack(){clearMediaViewer();document.getElementById('galleryPlayer').hidden=true;if(activeMediaSection==='photos'){document.getElementById('photoHome').hidden=false}else{document.getElementById('videoHome').hidden=false}document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 </script>
 </body>
