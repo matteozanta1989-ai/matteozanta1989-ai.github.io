@@ -27,6 +27,8 @@ body{display:flex;justify-content:center;align-items:flex-start;min-height:100sv
 .music{left:23.2%;top:47.8%;width:16.8%;height:34.5%}
 .gallery{left:40.1%;top:47.8%;width:15.7%;height:34.5%}
 .heart{left:56.0%;top:47.8%;width:16.7%;height:34.5%}
+.gallery-media-mark{position:absolute;left:60%;top:48%;width:30%;aspect-ratio:1/1;display:block;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(56,40,29,.12))}
+.gallery-media-mark svg{display:block;width:100%;height:100%}
 .hint{position:absolute;right:1.2rem;bottom:.7rem;font-size:11px;color:rgba(56,40,29,.55);background:rgba(255,250,242,.55);padding:.3rem .55rem;border-radius:999px;backdrop-filter:blur(5px)}
 .overlay{position:fixed;inset:0;z-index:10;background:rgba(30,20,13,.72);display:none;align-items:flex-end;justify-content:center;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
 .overlay.open{display:flex}
@@ -55,9 +57,17 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 </head>
 <body>
 <main class="stage" aria-label="Valigia dei ricordi">
-  <img src="assets/valigia.jpg" alt="Valigia aperta con tre icone: musica, video e cuore">
+  <img src="assets/valigia.jpg" alt="Valigia aperta con tre icone: musica, foto e video, e cuore">
   <button class="hotspot music" aria-label="Apri la musica" onclick="openPanel('musicPanel')"></button>
-  <button class="hotspot gallery" aria-label="Apri i video" onclick="openPanel('galleryPanel')"></button>
+  <button class="hotspot gallery" aria-label="Apri foto e video" onclick="openPanel('galleryPanel')">
+    <span class="gallery-media-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="48" height="48" rx="5" fill="#f2dfca" stroke="#3f2d21" stroke-width="4"/>
+        <circle cx="42" cy="22" r="5" fill="#3f2d21"/>
+        <path d="M14 48l13-15 9 9 7-7 13 13" fill="none" stroke="#3f2d21" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
   <button class="hotspot heart" aria-label="Apri il video speciale" onclick="openMainVideo()"></button>
   <div class="hint">tocca un'icona ✨</div>
 </main>
