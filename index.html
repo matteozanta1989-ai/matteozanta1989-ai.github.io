@@ -78,6 +78,17 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 .extra-heart{position:absolute;left:45%;top:34%;z-index:4;font-size:29px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.15))}.extra-star{position:absolute;right:8%;top:37%;z-index:4;font-size:26px;color:#c6923e}
 .media-section{clear:both}
 .section-back{border:0;background:#efe2d2;color:#4a3426;border-radius:50%;width:42px;height:42px;font-size:22px;font-weight:700;margin:2px 0 10px;cursor:pointer}
+.photo-folders{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;clear:both;margin-top:10px;padding:2px}
+.photo-folder{position:relative;grid-column:span 2;aspect-ratio:1/1;border:1.5px solid #dfc19b;border-radius:18px;background:linear-gradient(155deg,#fff8ee,#f1dfc7);padding:11px;cursor:pointer;box-shadow:0 6px 16px rgba(70,43,24,.10);overflow:hidden;-webkit-tap-highlight-color:transparent}
+.photo-folder:nth-child(1){grid-column:1/span 2}.photo-folder:nth-child(2){grid-column:3/span 2}.photo-folder:nth-child(3){grid-column:5/span 2}.photo-folder:nth-child(4){grid-column:2/span 2}.photo-folder:nth-child(5){grid-column:4/span 2}
+.photo-folder:before{content:"";position:absolute;left:11%;right:11%;top:25%;bottom:11%;border:2px solid #b8895d;border-radius:10px 10px 14px 14px;background:linear-gradient(145deg,#f2dfc4,#e7c89f)}
+.photo-folder:after{content:"";position:absolute;left:11%;top:18%;width:38%;height:18%;border:2px solid #b8895d;border-bottom:0;border-radius:10px 10px 0 0;background:#e6c69c}
+.photo-folder-icon{position:absolute;z-index:3;inset:31% 8% 13%;display:grid;place-items:center;font-size:34px;line-height:1;filter:drop-shadow(0 2px 2px rgba(63,42,27,.08))}
+.photo-folder-cover{position:absolute;z-index:3;left:15%;right:15%;top:32%;bottom:14%;width:70%;height:54%;object-fit:cover;border-radius:9px;border:2px solid rgba(139,91,54,.55)}
+.photo-folder:active{transform:scale(.985)}
+.photo-folder:focus-visible{outline:3px solid #c9a57d;outline-offset:2px}
+@media(max-width:520px){.photo-folders{gap:7px}.photo-folder{border-radius:14px;padding:8px}.photo-folder-icon{font-size:28px}.photo-folder-cover{border-width:1.5px}}
+
 @media(max-width:520px){.media-menu{gap:6px}.media-card{border-radius:13px}.video-peek{border-width:3px}.photo-peek{border-width:3px}.folder-play:after{border-top-width:8px;border-bottom-width:8px;border-left-width:13px}.extra-pouch:after{font-size:22px}.extra-heart{font-size:22px}.extra-star{font-size:20px}.camera-body{border-width:2px}.camera-lens{border-width:3px}}
 @media (max-width:520px){.stage{width:100vw;box-shadow:none}.hint{display:none}.overlay{padding:0;align-items:flex-end}.sheet{max-height:94svh;border-radius:24px 24px 0 0;padding:18px 14px 18px}.gallery-grid{gap:8px}.track{padding:10px}.thumb span{font-size:11px}}
 @media (min-width:700px){body{align-items:center;padding:24px}.stage{border-radius:22px}.overlay{align-items:center}.sheet{border-radius:26px}}
@@ -154,10 +165,17 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
     </div>
     <div id="photoHome" class="media-section" hidden>
       <button class="section-back" onclick="mediaMenuBack()" aria-label="Indietro">‹</button>
-      <div class="gallery-grid">
-        <button class="thumb" onclick="openPhoto('assets/IMG_20260805_201518_edit_1713232036475410.jpg')"><img src="assets/IMG_20260805_201518_edit_1713232036475410.jpg" alt="Foto"></button>
-        <button class="thumb land" onclick="openPhoto('assets/FB_IMG_1776092345454.jpg')"><img src="assets/FB_IMG_1776092345454.jpg" alt="Foto di gruppo"></button>
+      <div class="photo-folders" aria-label="Sottocartelle foto">
+        <button class="photo-folder" onclick="openPhotoCategory('drink')" aria-label="Drink"><span class="photo-folder-icon" aria-hidden="true">🥂🥂</span></button>
+        <button class="photo-folder" onclick="openPhotoCategory('food')" aria-label="Food"><span class="photo-folder-icon" aria-hidden="true">🍔🍟</span></button>
+        <button class="photo-folder" onclick="openPhotoCategory('selfie')" aria-label="Selfie"><span class="photo-folder-icon" aria-hidden="true">🤳</span></button>
+        <button class="photo-folder" onclick="openPhotoCategory('ballo')" aria-label="Ballo"><span class="photo-folder-icon" aria-hidden="true">💃🎵</span></button>
+        <button class="photo-folder" onclick="openPhotoCategory('random')" aria-label="Random"><img class="photo-folder-cover" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Prato%20della%20Valle.JPG?width=600" alt=""></button>
       </div>
+    </div>
+    <div id="photoCategoryHome" class="media-section" hidden>
+      <button class="section-back" onclick="photoCategoriesBack()" aria-label="Indietro">‹</button>
+      <div id="photoCategoryGrid" class="gallery-grid"></div>
     </div>
     <div id="galleryPlayer" hidden>
       <div class="video-wrap" id="videoWrap"><video id="extraVideo" controls playsinline preload="metadata"></video></div>
@@ -169,19 +187,44 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 <script>
 const overlays=[...document.querySelectorAll('.overlay')];
 let activeMediaSection='';
+let activePhotoCategory='';
+const photoCategories={
+  drink:[],
+  food:[],
+  selfie:[],
+  ballo:['assets/FB_IMG_1776092345454.jpg'],
+  random:['assets/IMG_20260805_201518_edit_1713232036475410.jpg']
+};
 function openPanel(id){closeVideos();if(id==='galleryPanel')resetMediaPanel();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
 function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';resetMediaPanel()}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
 function clearMediaViewer(){const v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');if(v){v.pause();v.removeAttribute('src');v.load()}if(img)img.removeAttribute('src');if(vw)vw.hidden=false;if(iw)iw.hidden=true}
-function resetMediaPanel(){activeMediaSection='';clearMediaViewer();const menu=document.getElementById('mediaMenu'),vh=document.getElementById('videoHome'),ph=document.getElementById('photoHome'),box=document.getElementById('galleryPlayer');if(menu)menu.hidden=false;if(vh)vh.hidden=true;if(ph)ph.hidden=true;if(box)box.hidden=true}
-function openMediaSection(section){activeMediaSection=section;document.getElementById('mediaMenu').hidden=true;document.getElementById('videoHome').hidden=section!=='videos';document.getElementById('photoHome').hidden=section!=='photos';document.getElementById('galleryPlayer').hidden=true;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function resetMediaPanel(){activeMediaSection='';activePhotoCategory='';clearMediaViewer();const menu=document.getElementById('mediaMenu'),vh=document.getElementById('videoHome'),ph=document.getElementById('photoHome'),pch=document.getElementById('photoCategoryHome'),box=document.getElementById('galleryPlayer');if(menu)menu.hidden=false;if(vh)vh.hidden=true;if(ph)ph.hidden=true;if(pch)pch.hidden=true;if(box)box.hidden=true}
+function openMediaSection(section){activeMediaSection=section;activePhotoCategory='';document.getElementById('mediaMenu').hidden=true;document.getElementById('videoHome').hidden=section!=='videos';document.getElementById('photoHome').hidden=section!=='photos';document.getElementById('photoCategoryHome').hidden=true;document.getElementById('galleryPlayer').hidden=true;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function mediaMenuBack(){resetMediaPanel();document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function openPhotoCategory(category){
+  activeMediaSection='photos';
+  activePhotoCategory=category;
+  const grid=document.getElementById('photoCategoryGrid');
+  const photos=photoCategories[category]||[];
+  grid.innerHTML=photos.map((src,i)=>`<button class="thumb${category==='ballo'&&i===0?' land':''}" onclick="openPhoto('${src}')"><img src="${src}" alt="Foto"></button>`).join('');
+  document.getElementById('photoHome').hidden=true;
+  document.getElementById('photoCategoryHome').hidden=false;
+  document.getElementById('galleryPlayer').hidden=true;
+  document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+}
+function photoCategoriesBack(){
+  activePhotoCategory='';
+  document.getElementById('photoCategoryHome').hidden=true;
+  document.getElementById('photoHome').hidden=false;
+  document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+}
 const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4',6:'assets/VID_20260710_003340_web_final.mp4'};
 function playExtra(n){activeMediaSection='videos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;box.hidden=false;iw.hidden=true;vw.hidden=false;img.removeAttribute('src');v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function openPhoto(src){activeMediaSection='photos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function galleryBack(){clearMediaViewer();document.getElementById('galleryPlayer').hidden=true;if(activeMediaSection==='photos'){document.getElementById('photoHome').hidden=false}else{document.getElementById('videoHome').hidden=false}document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function openPhoto(src){activeMediaSection='photos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;document.getElementById('photoCategoryHome').hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function galleryBack(){clearMediaViewer();document.getElementById('galleryPlayer').hidden=true;if(activeMediaSection==='photos'){if(activePhotoCategory){document.getElementById('photoCategoryHome').hidden=false}else{document.getElementById('photoHome').hidden=false}}else{document.getElementById('videoHome').hidden=false}document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 </script>
 </body>
