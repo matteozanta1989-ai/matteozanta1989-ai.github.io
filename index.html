@@ -87,7 +87,13 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 .photo-folder-cover{position:absolute;z-index:3;left:15%;right:15%;top:32%;bottom:14%;width:70%;height:54%;object-fit:cover;border-radius:9px;border:2px solid rgba(139,91,54,.55)}
 .photo-folder:active{transform:scale(.985)}
 .photo-folder:focus-visible{outline:3px solid #c9a57d;outline-offset:2px}
-@media(max-width:520px){.photo-folders{gap:7px}.photo-folder{border-radius:14px;padding:8px}.photo-folder-icon{font-size:28px}.photo-folder-cover{border-width:1.5px}}
+.selfie-subfolders{grid-template-columns:repeat(4,minmax(0,1fr));max-width:430px;margin:10px auto 0}
+.selfie-subfolders .photo-folder:nth-child(1){grid-column:1/span 2}
+.selfie-subfolders .photo-folder:nth-child(2){grid-column:3/span 2}
+.couple-selfie-icon{font-size:29px;display:flex;align-items:center;justify-content:center;gap:0;white-space:nowrap}
+.couple-selfie-icon .couple{display:inline-block;transform:translateX(5px)}
+.couple-selfie-icon .phone{display:inline-block;font-size:20px;transform:translate(-2px,-12px) rotate(-10deg);filter:drop-shadow(0 1px 1px rgba(63,42,27,.12))}
+@media(max-width:520px){.photo-folders{gap:7px}.photo-folder{border-radius:14px;padding:8px}.photo-folder-icon{font-size:28px}.photo-folder-cover{border-width:1.5px}.couple-selfie-icon{font-size:25px}.couple-selfie-icon .phone{font-size:18px}}
 
 @media(max-width:520px){.media-menu{gap:6px}.media-card{border-radius:13px}.video-peek{border-width:3px}.photo-peek{border-width:3px}.folder-play:after{border-top-width:8px;border-bottom-width:8px;border-left-width:13px}.extra-pouch:after{font-size:22px}.extra-heart{font-size:22px}.extra-star{font-size:20px}.camera-body{border-width:2px}.camera-lens{border-width:3px}}
 @media (max-width:520px){.stage{width:100vw;box-shadow:none}.hint{display:none}.overlay{padding:0;align-items:flex-end}.sheet{max-height:94svh;border-radius:24px 24px 0 0;padding:18px 14px 18px}.gallery-grid{gap:8px}.track{padding:10px}.thumb span{font-size:11px}}
@@ -173,6 +179,13 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
         <button class="photo-folder" onclick="openPhotoCategory('random')" aria-label="Random"><img class="photo-folder-cover" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Prato%20della%20Valle.JPG?width=600" alt=""></button>
       </div>
     </div>
+    <div id="selfieSubcategoryHome" class="media-section" hidden>
+      <button class="section-back" onclick="selfieSubcategoriesBack()" aria-label="Indietro">‹</button>
+      <div class="photo-folders selfie-subfolders" aria-label="Sottocartelle Selfie">
+        <button class="photo-folder" onclick="openSelfieSubcategory('specchio')" aria-label="Specchio"><span class="photo-folder-icon" aria-hidden="true">🪞</span></button>
+        <button class="photo-folder" onclick="openSelfieSubcategory('selfie')" aria-label="Selfie insieme"><span class="photo-folder-icon couple-selfie-icon" aria-hidden="true"><span class="couple">👩🏻‍🤝‍👨🏻</span><span class="phone">📱</span></span></button>
+      </div>
+    </div>
     <div id="photoCategoryHome" class="media-section" hidden>
       <button class="section-back" onclick="photoCategoriesBack()" aria-label="Indietro">‹</button>
       <div id="photoCategoryGrid" class="gallery-grid"></div>
@@ -188,12 +201,17 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 const overlays=[...document.querySelectorAll('.overlay')];
 let activeMediaSection='';
 let activePhotoCategory='';
+let activePhotoSubcategory='';
 const photoCategories={
   drink:['assets/drink/IMG_20251019_161200.jpg','assets/drink/IMG_20260418_173328.jpg','assets/drink/IMG_20260418_173403.jpg','assets/drink/IMG_20260531_211150.jpg','assets/drink/IMG_20260529_195323.jpg','assets/drink/IMG_20260529_195322.jpg','assets/drink/IMG_20260301_182456.jpg','assets/drink/IMG-20260329-WA0009.jpg'],
   food:['assets/foodie/IMG_20251017_200503.jpg','assets/foodie/IMG_20260329_202707.jpg','assets/foodie/IMG_20260329_202711.jpg','assets/foodie/IMG_20260412_204817.jpg','assets/foodie/IMG_20260412_204823.jpg','assets/foodie/IMG_20260505_195146.jpg','assets/foodie/IMG_20260505_195157.jpg','assets/foodie/IMG_20260514_204053.jpg','assets/foodie/IMG_20260514_210129.jpg','assets/foodie/IMG_20260514_210131.jpg','assets/foodie/IMG_20260516_204046.jpg','assets/foodie/IMG_20260531_211133.jpg','assets/foodie/IMG_20260602_132947_1.jpg','assets/foodie/IMG_20260605_213556.jpg','assets/foodie/IMG_20260805_193327.jpg'],
   selfie:[],
   ballo:['assets/ballo/ballo_01.jpg','assets/ballo/ballo_02.jpg','assets/ballo/ballo_03.jpg','assets/ballo/ballo_04.jpg','assets/ballo/ballo_05.jpg','assets/ballo/ballo_06.jpg','assets/ballo/ballo_07.jpg','assets/ballo/ballo_08.jpg','assets/ballo/ballo_09.jpg','assets/ballo/ballo_10.jpg'],
   random:['assets/IMG_20260805_201518_edit_1713232036475410.jpg']
+};
+const selfieSubcategories={
+  specchio:['assets/selfie/specchio/specchio_01.jpg','assets/selfie/specchio/specchio_02.jpg','assets/selfie/specchio/specchio_03.jpg','assets/selfie/specchio/specchio_04.jpg','assets/selfie/specchio/specchio_05.jpg','assets/selfie/specchio/specchio_06.jpg','assets/selfie/specchio/specchio_07.jpg','assets/selfie/specchio/specchio_08.jpg','assets/selfie/specchio/specchio_09.jpg','assets/selfie/specchio/specchio_10.jpg','assets/selfie/specchio/specchio_11.jpg'],
+  selfie:[]
 };
 const balloVideo={src:'assets/ballo/ballo_video_1.mp4',poster:'assets/ballo/ballo_09.jpg'};
 function openPanel(id){closeVideos();if(id==='galleryPanel')resetMediaPanel();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
@@ -202,12 +220,21 @@ function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.
 function closeAll(){closeVideos();overlays.forEach(x=>x.classList.remove('open'));document.body.style.overflow='';resetMediaPanel()}
 function backdrop(e){if(e.target.classList.contains('overlay'))closeAll()}
 function clearMediaViewer(){const v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');if(v){v.pause();v.removeAttribute('src');v.load()}if(img)img.removeAttribute('src');if(vw)vw.hidden=false;if(iw)iw.hidden=true}
-function resetMediaPanel(){activeMediaSection='';activePhotoCategory='';clearMediaViewer();const menu=document.getElementById('mediaMenu'),vh=document.getElementById('videoHome'),ph=document.getElementById('photoHome'),pch=document.getElementById('photoCategoryHome'),box=document.getElementById('galleryPlayer');if(menu)menu.hidden=false;if(vh)vh.hidden=true;if(ph)ph.hidden=true;if(pch)pch.hidden=true;if(box)box.hidden=true}
-function openMediaSection(section){activeMediaSection=section;activePhotoCategory='';document.getElementById('mediaMenu').hidden=true;document.getElementById('videoHome').hidden=section!=='videos';document.getElementById('photoHome').hidden=section!=='photos';document.getElementById('photoCategoryHome').hidden=true;document.getElementById('galleryPlayer').hidden=true;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function resetMediaPanel(){activeMediaSection='';activePhotoCategory='';activePhotoSubcategory='';clearMediaViewer();const menu=document.getElementById('mediaMenu'),vh=document.getElementById('videoHome'),ph=document.getElementById('photoHome'),sh=document.getElementById('selfieSubcategoryHome'),pch=document.getElementById('photoCategoryHome'),box=document.getElementById('galleryPlayer');if(menu)menu.hidden=false;if(vh)vh.hidden=true;if(ph)ph.hidden=true;if(sh)sh.hidden=true;if(pch)pch.hidden=true;if(box)box.hidden=true}
+function openMediaSection(section){activeMediaSection=section;activePhotoCategory='';activePhotoSubcategory='';document.getElementById('mediaMenu').hidden=true;document.getElementById('videoHome').hidden=section!=='videos';document.getElementById('photoHome').hidden=section!=='photos';document.getElementById('selfieSubcategoryHome').hidden=true;document.getElementById('photoCategoryHome').hidden=true;document.getElementById('galleryPlayer').hidden=true;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function mediaMenuBack(){resetMediaPanel();document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function openPhotoCategory(category){
   activeMediaSection='photos';
   activePhotoCategory=category;
+  activePhotoSubcategory='';
+  if(category==='selfie'){
+    document.getElementById('photoHome').hidden=true;
+    document.getElementById('selfieSubcategoryHome').hidden=false;
+    document.getElementById('photoCategoryHome').hidden=true;
+    document.getElementById('galleryPlayer').hidden=true;
+    document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
   const grid=document.getElementById('photoCategoryGrid');
   const photos=photoCategories[category]||[];
   grid.innerHTML=photos.map((src,i)=>`<button class="thumb${category==='ballo'&&i<=7?' land':''}" onclick="openPhoto('${src}')"><img src="${src}" alt="Foto"></button>`).join('');
@@ -215,6 +242,20 @@ function openPhotoCategory(category){
     grid.insertAdjacentHTML('beforeend',`<button class="thumb" onclick="playBalloVideo()"><img src="${balloVideo.poster}" alt="Video ballo"><i class="playdot">▶</i></button>`);
   }
   document.getElementById('photoHome').hidden=true;
+  document.getElementById('selfieSubcategoryHome').hidden=true;
+  document.getElementById('photoCategoryHome').hidden=false;
+  document.getElementById('galleryPlayer').hidden=true;
+  document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+}
+function openSelfieSubcategory(subcategory){
+  activeMediaSection='photos';
+  activePhotoCategory='selfie';
+  activePhotoSubcategory=subcategory;
+  const grid=document.getElementById('photoCategoryGrid');
+  const photos=selfieSubcategories[subcategory]||[];
+  grid.innerHTML=photos.map(src=>`<button class="thumb" onclick="openPhoto('${src}')"><img src="${src}" alt="Foto"></button>`).join('');
+  document.getElementById('photoHome').hidden=true;
+  document.getElementById('selfieSubcategoryHome').hidden=true;
   document.getElementById('photoCategoryHome').hidden=false;
   document.getElementById('galleryPlayer').hidden=true;
   document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
@@ -235,14 +276,28 @@ function playBalloVideo(){
   document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
 }
 function photoCategoriesBack(){
-  activePhotoCategory='';
   document.getElementById('photoCategoryHome').hidden=true;
+  if(activePhotoCategory==='selfie'&&activePhotoSubcategory){
+    activePhotoSubcategory='';
+    document.getElementById('selfieSubcategoryHome').hidden=false;
+  }else{
+    activePhotoCategory='';
+    activePhotoSubcategory='';
+    document.getElementById('selfieSubcategoryHome').hidden=true;
+    document.getElementById('photoHome').hidden=false;
+  }
+  document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+}
+function selfieSubcategoriesBack(){
+  activePhotoCategory='';
+  activePhotoSubcategory='';
+  document.getElementById('selfieSubcategoryHome').hidden=true;
   document.getElementById('photoHome').hidden=false;
   document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
 }
 const extraSources={1:'assets/video_extra_1_hq%20(1).mp4',2:'assets/video_extra_2_hq2.mp4',3:'assets/video_extra_3_hq2.mp4',4:'assets/video_extra_4_hq.mp4',5:'assets/video_extra_5_hq.mp4',6:'assets/VID_20260710_003340_web_final.mp4'};
 function playExtra(n){activeMediaSection='videos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;box.hidden=false;iw.hidden=true;vw.hidden=false;img.removeAttribute('src');v.poster=`assets/video_extra_${n}.jpg`;v.src=extraSources[n];v.load();v.play().catch(()=>{});document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
-function openPhoto(src){activeMediaSection='photos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;document.getElementById('photoCategoryHome').hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
+function openPhoto(src){activeMediaSection='photos';const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');document.getElementById('videoHome').hidden=true;document.getElementById('photoHome').hidden=true;document.getElementById('selfieSubcategoryHome').hidden=true;document.getElementById('photoCategoryHome').hidden=true;box.hidden=false;v.pause();v.removeAttribute('src');v.load();vw.hidden=true;iw.hidden=false;img.src=src;document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 function galleryBack(){clearMediaViewer();document.getElementById('galleryPlayer').hidden=true;if(activeMediaSection==='photos'){if(activePhotoCategory){document.getElementById('photoCategoryHome').hidden=false}else{document.getElementById('photoHome').hidden=false}}else{document.getElementById('videoHome').hidden=false}document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'})}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 </script>
