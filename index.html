@@ -195,7 +195,7 @@ const photoCategories={
   ballo:['assets/ballo/ballo_01.jpg','assets/ballo/ballo_02.jpg','assets/ballo/ballo_03.jpg','assets/ballo/ballo_04.jpg','assets/ballo/ballo_05.jpg','assets/ballo/ballo_06.jpg','assets/ballo/ballo_07.jpg','assets/ballo/ballo_08.jpg','assets/ballo/ballo_09.jpg','assets/ballo/ballo_10.jpg'],
   random:['assets/IMG_20260805_201518_edit_1713232036475410.jpg']
 };
-const balloVideo={src:'assets/ballo/ballo_video_1.mp4',poster:'assets/ballo/ballo_video_1.jpg'};
+const balloVideo={src:'assets/ballo/ballo_video_1.mp4',poster:'assets/ballo/ballo_09.jpg'};
 function openPanel(id){closeVideos();if(id==='galleryPanel')resetMediaPanel();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
 function closeVideos(){for(const v of document.querySelectorAll('video')){try{v.pause()}catch(e){}}}
