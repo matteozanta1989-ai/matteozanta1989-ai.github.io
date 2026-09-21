@@ -213,6 +213,10 @@ const selfieSubcategories={
   specchio:['assets/selfie/specchio/specchio_01.jpg','assets/selfie/specchio/specchio_02.jpg','assets/selfie/specchio/specchio_03.jpg','assets/selfie/specchio/specchio_04.jpg','assets/selfie/specchio/specchio_05.jpg','assets/selfie/specchio/specchio_06.jpg','assets/selfie/specchio/specchio_07.jpg','assets/selfie/specchio/specchio_08.jpg','assets/selfie/specchio/specchio_09.jpg','assets/selfie/specchio/specchio_10.jpg','assets/selfie/specchio/specchio_11.jpg'],
   selfie:['assets/selfie/selfie/selfie_01.jpg','assets/selfie/selfie/selfie_02.jpg','assets/selfie/selfie/selfie_03.jpg','assets/selfie/selfie/selfie_04.jpg','assets/selfie/selfie/selfie_05.jpg','assets/selfie/selfie/selfie_06.jpg','assets/selfie/selfie/selfie_07.jpg','assets/selfie/selfie/selfie_08.jpg','assets/selfie/selfie/selfie_09.jpg','assets/selfie/selfie/selfie_10.jpg','assets/selfie/selfie/selfie_11.jpg','assets/selfie/selfie/selfie_12.jpg','assets/selfie/selfie/selfie_13.jpg','assets/selfie/selfie/selfie_14.jpg','assets/selfie/selfie/selfie_15.jpg','assets/selfie/selfie/selfie_16.jpg','assets/selfie/selfie/selfie_17.jpg','assets/selfie/selfie/selfie_18.jpg','assets/selfie/selfie/selfie_19.jpg','assets/selfie/selfie/selfie_20.jpg','assets/selfie/selfie/selfie_21.jpg','assets/selfie/selfie/selfie_22.jpg','assets/selfie/selfie/selfie_23.jpg']
 };
+const selfieVideos=[
+  {src:'assets/selfie/selfie/selfie_video_01.mp4',poster:'assets/selfie/selfie/selfie_video_01.jpg'},
+  {src:'assets/selfie/selfie/selfie_video_02.mp4',poster:'assets/selfie/selfie/selfie_video_02.jpg'}
+];
 const balloVideo={src:'assets/ballo/ballo_video_1.mp4',poster:'assets/ballo/ballo_09.jpg'};
 function openPanel(id){closeVideos();if(id==='galleryPanel')resetMediaPanel();document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function openMainVideo(){openPanel('mainPanel');const v=document.getElementById('mainVideo');if(!v.src)v.src='assets/video_principale.mp4'}
@@ -254,10 +258,31 @@ function openSelfieSubcategory(subcategory){
   const grid=document.getElementById('photoCategoryGrid');
   const photos=selfieSubcategories[subcategory]||[];
   grid.innerHTML=photos.map(src=>`<button class="thumb" onclick="openPhoto('${src}')"><img src="${src}" alt="Foto"></button>`).join('');
+  if(subcategory==='selfie'){
+    grid.insertAdjacentHTML('beforeend',selfieVideos.map((item,i)=>`<button class="thumb" onclick="playSelfieVideo(${i})"><img src="${item.poster}" alt="Video selfie ${i+1}"><i class="playdot">▶</i></button>`).join(''));
+  }
   document.getElementById('photoHome').hidden=true;
   document.getElementById('selfieSubcategoryHome').hidden=true;
   document.getElementById('photoCategoryHome').hidden=false;
   document.getElementById('galleryPlayer').hidden=true;
+  document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
+}
+function playSelfieVideo(i){
+  activeMediaSection='photos';
+  activePhotoCategory='selfie';
+  activePhotoSubcategory='selfie';
+  const item=selfieVideos[i];
+  if(!item)return;
+  const box=document.getElementById('galleryPlayer'),v=document.getElementById('extraVideo'),img=document.getElementById('extraImage'),iw=document.getElementById('imageWrap'),vw=document.getElementById('videoWrap');
+  document.getElementById('photoCategoryHome').hidden=true;
+  box.hidden=false;
+  iw.hidden=true;
+  vw.hidden=false;
+  img.removeAttribute('src');
+  v.poster=item.poster;
+  v.src=item.src;
+  v.load();
+  v.play().catch(()=>{});
   document.getElementById('gallerySheet').scrollTo({top:0,behavior:'smooth'});
 }
 function playBalloVideo(){
