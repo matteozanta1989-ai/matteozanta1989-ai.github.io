@@ -1,0 +1,10 @@
+name: Rebuild Random HQ
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo staging
