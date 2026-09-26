@@ -70,12 +70,16 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
 .camera-lens{position:absolute;left:50%;top:50%;transform:translate(-50%,-42%);width:43%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 42% 38%,#9d8b7e 0 9%,#2a2321 10% 29%,#0b0b0b 30% 50%,#73543f 51% 61%,#211713 62% 100%);border:4px solid #ad7c4d}
 .camera-flash{position:absolute;right:10%;top:13%;width:16%;height:15%;border-radius:3px;background:#27231f;border:3px solid #8a5b39}.camera-dot{position:absolute;right:10%;bottom:13%;width:10%;aspect-ratio:1;border-radius:50%;background:#c99a54;border:2px solid #8a5b39}
 .folder-extra{background:linear-gradient(155deg,#f5eadb,#dfc4a0);border:2px solid #c9a273;overflow:visible}
-.extra-pouch{position:absolute;left:5%;right:5%;bottom:8%;height:57%;background:linear-gradient(145deg,#efe4d2,#d7b98f);border:3px solid #8e5c38;border-radius:10px 10px 20px 20px;z-index:3}
-.extra-pouch:after{content:"✈";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);font-size:30px;color:#8b5b32}
+.extra-pouch{position:absolute;left:5%;right:5%;bottom:8%;height:57%;background:linear-gradient(145deg,#efe4d2,#d7b98f);border:3px solid #8e5c38;border-radius:10px 10px 20px 20px;z-index:3;overflow:hidden}
+.extra-diamond{position:absolute;left:50%;top:53%;width:38%;height:42%;transform:translate(-50%,-50%);clip-path:polygon(20% 8%,80% 8%,100% 38%,50% 96%,0 38%);background:linear-gradient(135deg,#fafafa 0 14%,#c9c6c1 15% 30%,#f4f1ed 31% 44%,#9f9b96 45% 60%,#e6e2dd 61% 77%,#b8b4ae 78% 100%);filter:drop-shadow(0 2px 2px rgba(74,54,38,.22));opacity:.96}
+.extra-diamond:before,.extra-diamond:after{content:"";position:absolute;inset:0;clip-path:inherit;pointer-events:none}
+.extra-diamond:before{background:linear-gradient(64deg,transparent 47%,rgba(255,255,255,.88) 48% 51%,transparent 52%),linear-gradient(116deg,transparent 47%,rgba(108,104,99,.42) 48% 51%,transparent 52%),linear-gradient(180deg,transparent 36%,rgba(255,255,255,.72) 37% 40%,transparent 41%)}
+.extra-diamond:after{background:linear-gradient(90deg,transparent 49%,rgba(110,106,101,.35) 50% 51%,transparent 52%);opacity:.75}
+.extra-spark{position:absolute;z-index:5;color:#fff7e6;text-shadow:0 0 5px rgba(255,255,255,.95),0 0 9px rgba(210,181,136,.55);line-height:1;pointer-events:none}
+.extra-spark.s1{left:22%;top:30%;font-size:18px}.extra-spark.s2{right:19%;top:24%;font-size:22px}.extra-spark.s3{left:31%;bottom:18%;font-size:15px}
 .extra-padova{position:absolute;left:10%;top:7%;width:54%;height:44%;object-fit:cover;border:5px solid #fff9ef;transform:rotate(-7deg);box-shadow:0 4px 8px rgba(46,31,19,.15);z-index:1}
 .extra-map{position:absolute;right:7%;top:12%;width:42%;height:42%;background:linear-gradient(135deg,#d6c29f,#eee0c7);border:2px solid #a88a65;transform:rotate(8deg);z-index:1}
 .extra-map:before,.extra-map:after{content:"";position:absolute;background:#aa9474;opacity:.75}.extra-map:before{left:18%;top:0;width:2px;height:100%;transform:rotate(25deg)}.extra-map:after{left:0;top:48%;width:100%;height:2px;transform:rotate(-14deg)}
-.extra-heart{position:absolute;left:45%;top:34%;z-index:4;font-size:29px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.15))}.extra-star{position:absolute;right:8%;top:37%;z-index:4;font-size:26px;color:#c6923e}
 .media-section{clear:both}
 .section-back{border:0;background:#efe2d2;color:#4a3426;border-radius:50%;width:42px;height:42px;font-size:22px;font-weight:700;margin:2px 0 10px;cursor:pointer}
 .photo-folders{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;clear:both;margin-top:10px;padding:2px}
@@ -153,9 +157,10 @@ video,.image-wrap img{display:block;width:100%;max-height:70svh;background:#000}
         <img class="photo-peek p2" src="assets/FB_IMG_1776092345454.jpg" alt="">
         <span class="camera-body" aria-hidden="true"><span class="camera-lens"></span><span class="camera-flash"></span><span class="camera-dot"></span></span>
       </button>
-      <button class="media-card folder-extra" aria-label="Contenuti extra, prossimamente" disabled>
+      <button class="media-card folder-extra" aria-label="Contenuti speciali, prossimamente" disabled>
         <img class="extra-padova" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Prato%20della%20Valle.JPG?width=600" alt="">
-        <span class="extra-map" aria-hidden="true"></span><span class="extra-heart" aria-hidden="true">❤️</span><span class="extra-star" aria-hidden="true">★</span><span class="extra-pouch" aria-hidden="true"></span>
+        <span class="extra-map" aria-hidden="true"></span>
+        <span class="extra-pouch" aria-hidden="true"><span class="extra-diamond"></span><span class="extra-spark s1">✦</span><span class="extra-spark s2">✦</span><span class="extra-spark s3">✦</span></span>
       </button>
     </div>
     <div id="videoHome" class="media-section" hidden>
